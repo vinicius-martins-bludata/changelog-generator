@@ -1,4 +1,4 @@
-const luxon = require('luxon');
+import { DateTime } from 'luxon';
 
 const escapeLine = '\r\n';
 function generateChangelog(data, configuration) {
@@ -65,7 +65,7 @@ function formatRow(item, configuration) {
 }
 
 function formatDate(date, format) {
-  return luxon.DateTime.fromISO(date).toFormat(format); 
+  return DateTime.fromISO(date).toFormat(format); 
 }
 
-module.exports = generateChangelog;
+export default generateChangelog;
