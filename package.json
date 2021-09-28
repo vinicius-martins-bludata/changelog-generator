@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@actions/core": "^1.5.0",
+    "@actions/github": "^5.0.0",
+    "luxon": "^2.0.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "name": "changelog-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vinicius-martins-bludata/changelog-generator.git",
+  "author": " ",
+  "license": "MIT",
+  "type": "module"
+}
