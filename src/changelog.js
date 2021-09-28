@@ -1,7 +1,12 @@
 const luxon = require('luxon');
 
 const escapeLine = '\r\n'
+const processedCommits = 0;
+let totalCommits = 0;
+
 function generateChangelog(data, configuration) {
+  totalCommits = data.length;
+  
   let changelog = '## Changelog';
 
   changelog += formatCategorizedCommits(data, configuration);
@@ -59,6 +64,9 @@ function formatRow(item, configuration) {
   const { commit } = item;
   const commitDate = formatDate(commit.author.date, configuration.dateTimeFormat);
   
+  processedCommits++;
+  console.log(`Processed commits: ${processedCommits}/${totalCommits}`);
+
   let row = `${commitDate} - ${commit.message} ([${item.sha}]${item.html_url})`;
   row += escapeLine;
   return row;

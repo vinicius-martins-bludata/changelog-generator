@@ -39,7 +39,7 @@ async function fetchCommits(octokit, repository) {
     const data = await fetchCommits(octokit, repository);
     
     const result = generateChangelog(data, configuration);
-  
+
     core.setOutput('changelog', result);
   }
   catch (error) {
