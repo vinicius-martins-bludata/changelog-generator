@@ -10,8 +10,8 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Generate changelog
-        uses: ./ # Uses an action in the root directory
+        uses: ./
         id: auto_changelog
 
       - name: Get the output time
-        run: echo "The time was ${{ steps.auto_changelog.outputs.changelog }}"
+        run: echo "${{ steps.auto_changelog.outputs.changelog }}"

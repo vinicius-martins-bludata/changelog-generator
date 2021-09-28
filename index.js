@@ -21,7 +21,7 @@ catch (error) {
   setFailed(error.message);
 }
 
-async function fetchCommits(octokit, owner, repository) {
+async function fetchCommits(octokit, repository) {
   let page = 1;
   let data = []
   let res;
