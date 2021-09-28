@@ -15,5 +15,5 @@ outputs:
   changelog:
     description: 'The changelog generated'
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: 'dockerfile'
+  main: 'Dockerfile'
