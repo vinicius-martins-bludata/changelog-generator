@@ -16,10 +16,5 @@ outputs:
     description: 'The changelog generated'
 
 runs:
-  using: composite
-  steps:
-     - name: Install dependencies
-       run: yarn install
-
-     - name: Run app
-       run: yarn start
+  using: node12
+  main: src/index.js

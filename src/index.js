@@ -1,6 +1,7 @@
-import generateChangelog from './changelog.js';
-import { readFileSync } from 'fs';
-import axios from 'axios';
+const generateChangelog  = require('./changelog.js');
+const fs = require('fs');
+const axios = require('axios').default;
+
 // import { getInput, setOutput, setFailed } from '@actions/core';
 // import { getOctokit } from '@actions/github';
 
@@ -30,24 +31,26 @@ async function fetchCommits() {
   return data;
 }
 
-try {
-  // const token = getInput('token');
-  // const repository = getInput('repository');
-  // const octokit = getOctokit(token);
-
-  // const configLocation = getInput('configLocation');
-  const configLocation = 'changelog-configuration.json';
-  const configuration = JSON.parse(readFileSync(configLocation));
-
-  // const data = await fetchCommits(octokit, repository);
-  const data = await fetchCommits();
+(async () => {
+  try {
+    // const token = getInput('token');
+    // const repository = getInput('repository');
+    // const octokit = getOctokit(token);
   
-  const result = generateChangelog(data, configuration);
-  console.log(result);
-
-  // setOutput('changelog', result);
-}
-catch (error) {
-  console.log(error.message)
-  // setFailed(error.message);
-}
+    // const configLocation = getInput('configLocation');
+    const configLocation = 'changelog-configuration.json';
+    const configuration = JSON.parse(fs.readFileSync(configLocation));
+  
+    // const data = await fetchCommits(octokit, repository);
+    const data = await fetchCommits();
+    
+    const result = generateChangelog(data, configuration);
+    console.log(result);
+  
+    // setOutput('changelog', result);
+  }
+  catch (error) {
+    console.log(error.message)
+    // setFailed(error.message);
+  }
+})();
