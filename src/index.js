@@ -1,24 +1,24 @@
 import generateChangelog from './changelog.js';
 import { readFileSync } from 'fs';
-import { getInput, setOutput, setFailed } from '@actions/core';
+const core = require('@actions/core')
 import { getOctokit } from '@actions/github';
 
 try {
-  const token = getInput('token');
-  const repository = getInput('repository');
+  const token = core.getInput('token');
+  const repository = core.getInput('repository');
   const octokit = getOctokit(token);
 
-  const configLocation = getInput('configLocation');
+  const configLocation = core.getInput('configLocation');
   const configuration = JSON.parse(readFileSync(configLocation));
 
   const data = await fetchCommits(octokit, repository);
   
   const changelog = generateChangelog(data, configuration);
 
-  setOutput('changelog', changelog);
+  core.setOutput('changelog', changelog);
 }
 catch (error) {
-  setFailed(error.message);
+  core.setFailed(error.message);
 }
 
 async function fetchCommits(octokit, repository) {
