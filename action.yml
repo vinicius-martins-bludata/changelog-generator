@@ -15,5 +15,5 @@ outputs:
   changelog:
     description: 'The changelog generated'
 runs:
-  using: 'dockerfile'
+  using: 'docker'
   main: 'Dockerfile'
