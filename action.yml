@@ -16,5 +16,10 @@ outputs:
     description: 'The changelog generated'
 
 runs:
-  using: docker
-  image: Dockerfile
+  using: composite
+  steps:
+     - name: Install dependencies
+       run: yarn install
+
+     - name: Run app
+       run: yarn start
