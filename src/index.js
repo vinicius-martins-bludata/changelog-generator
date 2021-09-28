@@ -1,6 +1,6 @@
 import generateChangelog from './changelog.js';
-import axios from 'axios';
 import { readFileSync } from 'fs';
+import axios from 'axios';
 // import { getInput, setOutput, setFailed } from '@actions/core';
 // import { getOctokit } from '@actions/github';
 
@@ -12,7 +12,8 @@ async function fetchCommits() {
   let res;
 
   do {
-    res = await axios.get(`/repos/vinicius-martins-bludata/changelog-generator/commits`, {
+    // res = await octokit.request(`/repos/vinicius-martins-bludata/changelog-generator/commits`, {
+    res = await axios.get(`https://api.github.com/repos/vinicius-martins-bludata/changelog-generator/commits`, {
       headers: {
         accept: ' application/vnd.github.v3+json',
       },
@@ -44,8 +45,9 @@ try {
   const result = generateChangelog(data, configuration);
   console.log(result);
 
-  setOutput('changelog', result);
+  // setOutput('changelog', result);
 }
 catch (error) {
-  setFailed(error.message);
+  console.log(error.message)
+  // setFailed(error.message);
 }
