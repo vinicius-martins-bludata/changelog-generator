@@ -1,5 +1,5 @@
 name: 'Generate changelog'
-description: 'Generate a changelog based on all comits of a repository'
+description: 'Generate a changelog based on all commits of a repository'
 inputs:
   token:
     description: Github token used to access the repository defined in the `repository` input.
