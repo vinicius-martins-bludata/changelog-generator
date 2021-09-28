@@ -1,6 +1,5 @@
 const generateChangelog  = require('./changelog.js');
 const fs = require('fs');
-const axios = require('axios').default;
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -32,7 +31,7 @@ async function fetchCommits(octokit, repository) {
   try {
     const token = core.getInput('token');
     const repository = core.getInput('repository');
-    const octokit = core.getOctokit(token);
+    const octokit = github.getOctokit(token);
   
     const configLocation = core.getInput('configLocation');
     const configuration = JSON.parse(fs.readFileSync(configLocation));
