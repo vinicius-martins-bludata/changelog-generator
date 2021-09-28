@@ -1,20 +1,17 @@
 const generateChangelog  = require('./changelog.js');
 const fs = require('fs');
 const axios = require('axios').default;
+const core = require('@actions/core');
+const github = require('@actions/github');
 
-// import { getInput, setOutput, setFailed } from '@actions/core';
-// import { getOctokit } from '@actions/github';
-
-// async function fetchCommits(octokit, repository) {
-async function fetchCommits() {
+async function fetchCommits(octokit, repository) {
   let page = 1;
   
   let data = []
   let res;
 
   do {
-    // res = await octokit.request(`/repos/vinicius-martins-bludata/changelog-generator/commits`, {
-    res = await axios.get(`https://api.github.com/repos/vinicius-martins-bludata/changelog-generator/commits`, {
+    res = await octokit.request(`/repos/${repository}/commits`, {
       headers: {
         accept: ' application/vnd.github.v3+json',
       },
@@ -33,24 +30,20 @@ async function fetchCommits() {
 
 (async () => {
   try {
-    // const token = getInput('token');
-    // const repository = getInput('repository');
-    // const octokit = getOctokit(token);
+    const token = core.getInput('token');
+    const repository = core.getInput('repository');
+    const octokit = core.getOctokit(token);
   
-    // const configLocation = getInput('configLocation');
-    const configLocation = 'changelog-configuration.json';
+    const configLocation = core.getInput('configLocation');
     const configuration = JSON.parse(fs.readFileSync(configLocation));
   
-    // const data = await fetchCommits(octokit, repository);
-    const data = await fetchCommits();
+    const data = await fetchCommits(octokit, repository);
     
     const result = generateChangelog(data, configuration);
-    console.log(result);
   
-    // setOutput('changelog', result);
+    core.setOutput('changelog', result);
   }
   catch (error) {
-    console.log(error.message)
-    // setFailed(error.message);
+    core.setFailed(error.message);
   }
 })();
