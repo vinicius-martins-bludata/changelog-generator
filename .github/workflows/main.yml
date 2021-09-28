@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  generator:
+    runs-on: ubuntu-latest
+    name: Generate changelog
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Generate changelog
+        uses: ./ # Uses an action in the root directory
+        id: auto_changelog
+
+      - name: Get the output time
+        run: echo "The time was ${{ steps.auto_changelog.outputs.changelog }}"
