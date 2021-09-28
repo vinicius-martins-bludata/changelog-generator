@@ -7,7 +7,7 @@ try {
   const token = getInput('token');
   const repository = getInput('repository');
   const octokit = getOctokit(token);
-  
+
   const configLocation = getInput('configLocation');
   const configuration = JSON.parse(readFileSync(configLocation));
 

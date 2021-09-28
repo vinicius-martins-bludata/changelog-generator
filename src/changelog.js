@@ -29,7 +29,8 @@ function formatCategorizedCommits(data, configuration) {
 }
 
 function getCategoryCommits(data, categoryLabel) {
-  return data.filter(item => item.commit.message.startsWith(...categoryLabel));
+  const categories = categoryLabel.map(c => new RegExp('^' + c, 'i'));
+  return data.filter(item => categories.some(c => c.test(item.commit.message)));
 }
 
 function formatUncategorizedCommits(data, configuration) {
@@ -50,7 +51,8 @@ function formatUncategorizedCommits(data, configuration) {
 
 function getRemainingCommits(data, configuration) {
   const allCategoryLabels = configuration.categories.map(c => c.label).flat();
-  return data.filter(item => !item.commit.message.startsWith(...allCategoryLabels));
+  const categories = allCategoryLabels.map(c => new RegExp('^' + c, 'i'));
+  return data.filter(item => !categories.some(c => c.test(item.commit.message)));
 }
 
 function formatRow(item, configuration) {
