@@ -3,25 +3,6 @@ import { readFileSync } from 'fs';
 import { getInput, setOutput, setFailed } from '@actions/core';
 import { getOctokit } from '@actions/github';
 
-try {
-  const token = getInput('token');
-  const repository = getInput('repository');
-  const octokit = getOctokit(token);
-
-  const configLocation = getInput('configLocation');
-  const configuration = JSON.parse(readFileSync(configLocation));
-
-  const data = await fetchCommits(octokit, repository);
-  
-  const result = generateChangelog(data, configuration);
-  console.log(result);
-
-  setOutput('changelog', result);
-}
-catch (error) {
-  setFailed(error.message);
-}
-
 async function fetchCommits(octokit, repository) {
   let page = 1;
   let data = []
@@ -43,4 +24,23 @@ async function fetchCommits(octokit, repository) {
   } while (res && res.data.length != 0);
 
   return data;
+}
+
+try {
+  const token = getInput('token');
+  const repository = getInput('repository');
+  const octokit = getOctokit(token);
+
+  const configLocation = getInput('configLocation');
+  const configuration = JSON.parse(readFileSync(configLocation));
+
+  const data = await fetchCommits(octokit, repository);
+  
+  const result = generateChangelog(data, configuration);
+  console.log(result);
+
+  setOutput('changelog', result);
+}
+catch (error) {
+  setFailed(error.message);
 }

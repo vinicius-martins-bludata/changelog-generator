@@ -1,7 +1,7 @@
 FROM node:16-alpine
 WORKDIR /app
 COPY ["package.json", "./"]
-RUN yarn install
+RUN npm i
 COPY . .
 RUN ls node_modules
-ENTRYPOINT ["yarn", "start"]
+ENTRYPOINT ["npm", "start"]

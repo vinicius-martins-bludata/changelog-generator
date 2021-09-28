@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 const escapeLine = '\r\n';
-function generateChangelog(data, configuration) {
+export default function generateChangelog(data, configuration) {
   let changelog = '## Changelog';
 
   changelog += formatCategorizedCommits(data, configuration);
@@ -67,5 +67,3 @@ function formatRow(item, configuration) {
 function formatDate(date, format) {
   return DateTime.fromISO(date).toFormat(format); 
 }
-
-export default generateChangelog;
